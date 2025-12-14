@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Facebook Video</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #000;
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        video {
+            max-width: 100%;
+            max-height: 70vh;
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
+        }
+        .info {
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎥 Test Facebook Video</h1>
+    
+    <div class="info">
+        <p><strong>Đường dẫn:</strong> /videos/Facebook.mp4</p>
+        <p><strong>Kích thước:</strong> 4.7MB</p>
+        <p><strong>Trạng thái:</strong> <span id="status">Đang tải...</span></p>
+    </div>
+
+    <video 
+        id="testVideo"
+        controls 
+        muted 
+        playsInline
+        preload="auto"
+        style="display: none;"
+    >
+        <source src="/videos/Facebook.mp4" type="video/mp4">
+        Browser không hỗ trợ video HTML5
+    </video>
+
+    <div id="error" style="color: #f44336; display: none;">
+        ❌ Không thể tải video. Kiểm tra đường dẫn file.
+    </div>
+
+    <script>
+        const video = document.getElementById('testVideo');
+        const status = document.getElementById('status');
+        const error = document.getElementById('error');
+
+        video.addEventListener('loadstart', () => {
+            status.textContent = 'Đang tải video...';
+        });
+
+        video.addEventListener('canplay', () => {
+            status.textContent = '✅ Video sẵn sàng phát!';
+            video.style.display = 'block';
+        });
+
+        video.addEventListener('error', (e) => {
+            status.textContent = '❌ Lỗi tải video';
+            error.style.display = 'block';
+            console.error('Video error:', e);
+        });
+
+        // Tự động load video
+        video.load();
+    </script>
+
+    <div style="margin-top: 30px; font-size: 14px; opacity: 0.7;">
+        <p>Nếu video phát được ở đây → AR sẽ hoạt động tốt</p>
+        <p>Truy cập: <code>http://localhost:5173/test-video.html</code></p>
+    </div>
+</body>
+</html>
